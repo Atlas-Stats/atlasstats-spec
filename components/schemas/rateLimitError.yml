@@ -1,0 +1,8 @@
+type: object
+properties:
+  errorType:
+    type: string
+    example: "RateLimitExceeded"
+  message:
+    type: string
+    example: "Too many requests. Please try again later."

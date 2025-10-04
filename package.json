@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "lint:openapi": "redocly lint rootopenapi.yml",
+    "build:openapi": "npm run lint:openapi && redocly bundle rootopenapi.yml -o openapi.yml",
+  },
+  "devDependencies": {
+    "@redocly/cli": "^2.3.0"
+  }
+}

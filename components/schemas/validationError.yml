@@ -1,0 +1,19 @@
+type: object
+properties:
+  errorType:
+    type: string
+    example: "ValidationError"
+  message:
+    type: string
+    example: "One or more fields failed validation."
+  details:
+    type: array
+    items:
+      type: object
+      properties:
+        field:
+          type: string
+          example: "email"
+        issue:
+          type: string
+          example: "Invalid format"

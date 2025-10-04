@@ -1,0 +1,5 @@
+Retry-After:
+  description: Time in milli-seconds to wait before retrying
+  schema:
+    type: integer
+    example: 60

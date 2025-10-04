@@ -1,0 +1,11 @@
+# components/schemas/error.yml
+type: object
+properties:
+  error:
+    type: string
+    description: Error Type
+    example: "Quota Exceeded"
+  message:
+    type: string
+    description: Detailed error message
+    example: "The request is malformed"

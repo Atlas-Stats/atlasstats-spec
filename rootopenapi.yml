@@ -1,0 +1,32 @@
+openapi: 3.1.1
+info:
+  title: Atlas Stats API
+  description: The official OpenAPI specification for the Atlas Stats API, providing comprehensive data about countries worldwide.
+  version: 1.0.0
+  contact:
+    name: Atlas Stats Support
+    url: https://atlasstats.com/support
+  license:
+    name: Apache-2.0
+    url: https://opensource.org/licenses/Apache-2.0
+servers:
+  - url: https://api.atlasstats.com/v1
+    description: Production Server
+  - url: https://sandbox-api.atlasstats.com/v1
+    description: Sandbox Server for testing
+tags:
+  - name: Countries
+    description: Operations related to country data
+paths:
+  /countries:
+    $ref: "./paths/countries.yml"
+
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: api-key
+
+security:
+  - ApiKeyAuth: []

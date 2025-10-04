@@ -1,0 +1,8 @@
+type: object
+properties:
+  errorType:
+    type: string
+    example: "Unauthorized"
+  message:
+    type: string
+    example: "Missing or invalid authentication token."

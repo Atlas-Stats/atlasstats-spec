@@ -1,0 +1,132 @@
+openapi: 3.1.1
+info:
+  title: Atlas Stats API
+  description: The official OpenAPI specification for the Atlas Stats API, providing comprehensive data about countries worldwide.
+  version: 1.0.0
+  contact:
+    name: Atlas Stats Support
+    url: https://atlasstats.com/support
+  license:
+    name: Apache-2.0
+    url: https://opensource.org/licenses/Apache-2.0
+servers:
+  - url: https://api.atlasstats.com/v1
+    description: Production Server
+  - url: https://sandbox-api.atlasstats.com/v1
+    description: Sandbox Server for testing
+security:
+  - ApiKeyAuth: []
+tags:
+  - name: Countries
+    description: Operations related to country data
+paths:
+  /countries:
+    get:
+      operationId: getCountries
+      summary: List all countries
+      description: Returns a summary list of all countries supported by the API.
+      tags:
+        - Countries
+      responses:
+        '200':
+          description: A list of countries.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/country'
+        '400':
+          description: Bad Request - The request was malformed or contains invalid parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/validationError'
+        '401':
+          description: Unauthorized - API key is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/authError'
+        '403':
+          description: Forbidden - You do not have permission to access this resource.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/authError'
+        '429':
+          description: Too Many Requests - Rate limit exceeded.
+          headers:
+            Retry-After:
+              description: Time in milli-seconds to wait before retrying
+              schema:
+                type: integer
+                example: 60
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/rateLimitError'
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: api-key
+  schemas:
+    country:
+      type: object
+      properties:
+        name:
+          type: object
+          properties:
+            common:
+              type: string
+              example: Aruba
+            official:
+              type: string
+              example: Aruba
+        cca3:
+          type: string
+          description: ISO 3166-1 alpha-3 code.
+          example: ABW
+        region:
+          type: string
+          example: Americas
+    validationError:
+      type: object
+      properties:
+        errorType:
+          type: string
+          example: ValidationError
+        message:
+          type: string
+          example: One or more fields failed validation.
+        details:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+                example: email
+              issue:
+                type: string
+                example: Invalid format
+    authError:
+      type: object
+      properties:
+        errorType:
+          type: string
+          example: Unauthorized
+        message:
+          type: string
+          example: Missing or invalid authentication token.
+    rateLimitError:
+      type: object
+      properties:
+        errorType:
+          type: string
+          example: RateLimitExceeded
+        message:
+          type: string
+          example: Too many requests. Please try again later.

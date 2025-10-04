@@ -1,0 +1,19 @@
+# components/schemas/country.yml
+type: object
+properties:
+  name:
+    type: object
+    properties:
+      common:
+        type: string
+        example: Aruba
+      official:
+        type: string
+        example: Aruba
+  cca3:
+    type: string
+    description: ISO 3166-1 alpha-3 code.
+    example: ABW
+  region:
+    type: string
+    example: Americas
