@@ -1,0 +1,725 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Atlas Stats API",
+    "description": "The Atlas Stats API provides access to a wide range of statistical data, including GDP, population, and other key indicators for countries around the world. This API is designed to be fast, reliable, and easy to use, making it an ideal choice for developers looking to integrate statistical data into their applications.",
+    "contact": {
+      "name": "Atlas Stats",
+      "url": "https://AtlasStatsAPI.com",
+      "email": "support@AtlasStatsAPI.com"
+    },
+    "license": {
+      "name": "Apache-2.0",
+      "url": "https://opensource.org/licenses/Apache-2.0"
+    },
+    "version": "0.0.1"
+  },
+  "servers": [
+    {
+      "url": "https://api.AtlasStatsAPI.com",
+      "description": "Production Server"
+    },
+    {
+      "url": "https://sandbox-api.AtlasStatsAPI.com",
+      "description": "Sandbox Server for testing"
+    }
+  ],
+  "paths": {
+    "/v1/countries": {
+      "get": {
+        "tags": [
+          "Countries"
+        ],
+        "description": "Retrieves a filterable list of all countries with basic information.",
+        "operationId": "Countries_Countries_GET",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": null
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 100
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CountryDto"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CountryDto"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CountryDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/countries/{code}": {
+      "get": {
+        "tags": [
+          "Countries"
+        ],
+        "description": "Gets a comprehensive profile for a single country.",
+        "operationId": "Countries_CountryByCode_GET",
+        "parameters": [
+          {
+            "name": "code",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/CountryDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CountryDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CountryDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/countries/count": {
+      "get": {
+        "tags": [
+          "Countries"
+        ],
+        "description": "Retrieves the total count of countries in the database.",
+        "operationId": "Countries_CountriesCount_GET",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/countries/profile/{code}": {
+      "get": {
+        "tags": [
+          "Countries"
+        ],
+        "description": "A convenient summary of a country's key info and latest stats.",
+        "operationId": "Countries_CountryProfile_GET",
+        "parameters": [
+          {
+            "name": "code",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/v1/countries/{code}/geography": {
+      "get": {
+        "tags": [
+          "Countries"
+        ],
+        "description": "Provides detailed geographic data like borders, coastline, and elevation.",
+        "operationId": "Countries_Geography_GET",
+        "parameters": [
+          {
+            "name": "code",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/v1/countries/{code}/government": {
+      "get": {
+        "tags": [
+          "Countries"
+        ],
+        "description": "Gets current information on government type, head of state, etc.",
+        "operationId": "Countries_Government_GET",
+        "parameters": [
+          {
+            "name": "code",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/v1/countries/{code}/culture": {
+      "get": {
+        "tags": [
+          "Countries"
+        ],
+        "description": "Retrieves cultural information like national symbols and UNESCO sites.",
+        "operationId": "Countries_Culture_GET",
+        "parameters": [
+          {
+            "name": "code",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/v1/currencies": {
+      "get": {
+        "tags": [
+          "Currencies"
+        ],
+        "description": "Returns a list of all world currencies with their details.",
+        "operationId": "Currencies_Currencies_GET",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/fx/latest": {
+      "get": {
+        "tags": [
+          "FxRates"
+        ],
+        "description": "Gets the latest foreign exchange rates against a base currency.",
+        "operationId": "FxRates_GetLatestFxRates_GET",
+        "parameters": [
+          {
+            "name": "base",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": "EUR"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FxRateDto"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FxRateDto"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FxRateDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/fx/convert": {
+      "get": {
+        "tags": [
+          "FxRates"
+        ],
+        "description": "Performs currency conversions for current or historical dates.",
+        "operationId": "FxRates_ConvertCurrency_GET",
+        "parameters": [
+          {
+            "name": "from",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "amount",
+            "in": "query",
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "default": 1
+            }
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date",
+              "default": null
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/v1/stats/indicators": {
+      "get": {
+        "tags": [
+          "Stats"
+        ],
+        "description": "Provides a list of all available statistical indicators (e.g., population).",
+        "operationId": "Stats_GetIndicators_GET",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/stats/{category}/{metric}": {
+      "get": {
+        "tags": [
+          "Stats"
+        ],
+        "description": "Fetches historical time-series data for specified countries and indicators.",
+        "operationId": "Stats_GetIndicatorData_GET",
+        "parameters": [
+          {
+            "name": "category",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "metric",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "countries",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": null
+            }
+          },
+          {
+            "name": "startYear",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": null
+            }
+          },
+          {
+            "name": "endYear",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": null
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 100
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/v1/stats/compare": {
+      "get": {
+        "tags": [
+          "Stats"
+        ],
+        "description": "Returns a side-by-side comparison of specific stats for multiple countries.",
+        "operationId": "Stats_CompareCountries_GET",
+        "parameters": [
+          {
+            "name": "countries",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "indicators",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "year",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": null
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/v1/Users": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "operationId": "Users_CurrentUser_GET",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CountryDto": {
+        "required": [
+          "commonName",
+          "officialName",
+          "isoAlpha2CountryCode",
+          "isoAlpha3CountryCode",
+          "isoNumericCountryCode",
+          "dependentTerritories",
+          "flagImageUrl",
+          "capitals",
+          "languages",
+          "currencies",
+          "borderingCountries",
+          "demonymn",
+          "isUnMember",
+          "isLandlocked",
+          "areaKm2"
+        ],
+        "type": "object",
+        "properties": {
+          "commonName": {
+            "type": "string"
+          },
+          "officialName": {
+            "type": "string"
+          },
+          "isoAlpha2CountryCode": {
+            "type": "string"
+          },
+          "isoAlpha3CountryCode": {
+            "type": "string"
+          },
+          "isoNumericCountryCode": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "sovereignty": {
+            "type": "string",
+            "nullable": true
+          },
+          "dependentTerritories": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "flagImageUrl": {
+            "type": "string"
+          },
+          "capitals": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "languages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LanguageDto"
+            }
+          },
+          "currencies": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CurrencyDto"
+            }
+          },
+          "borderingCountries": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "demonymn": {
+            "type": "string"
+          },
+          "isUnMember": {
+            "type": "boolean"
+          },
+          "isLandlocked": {
+            "type": "boolean"
+          },
+          "areaKm2": {
+            "type": "integer",
+            "format": "uint32"
+          }
+        }
+      },
+      "CurrencyDto": {
+        "required": [
+          "code",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "FxRateDto": {
+        "required": [
+          "date",
+          "currencyCode",
+          "rate"
+        ],
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date"
+          },
+          "currencyCode": {
+            "type": "string"
+          },
+          "rate": {
+            "type": "number",
+            "format": "double"
+          }
+        }
+      },
+      "LanguageDto": {
+        "required": [
+          "code",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Countries"
+    },
+    {
+      "name": "Currencies"
+    },
+    {
+      "name": "FxRates"
+    },
+    {
+      "name": "Stats"
+    },
+    {
+      "name": "Users"
+    }
+  ]
+}
