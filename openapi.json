@@ -31,7 +31,7 @@
           "Countries"
         ],
         "description": "Retrieves a filterable list of all countries with basic information.",
-        "operationId": "Countries_Countries_GET",
+        "operationId": "GetCountries",
         "parameters": [
           {
             "name": "q",
@@ -99,7 +99,7 @@
           "Countries"
         ],
         "description": "Gets a comprehensive profile for a single country.",
-        "operationId": "Countries_CountryByCode_GET",
+        "operationId": "GetCountryByCode",
         "parameters": [
           {
             "name": "code",
@@ -140,7 +140,7 @@
           "Countries"
         ],
         "description": "Retrieves the total count of countries in the database.",
-        "operationId": "Countries_CountriesCount_GET",
+        "operationId": "GetCountriesCount",
         "responses": {
           "200": {
             "description": "OK",
@@ -174,7 +174,7 @@
           "Countries"
         ],
         "description": "A convenient summary of a country's key info and latest stats.",
-        "operationId": "Countries_CountryProfile_GET",
+        "operationId": "GetCountryProfile",
         "parameters": [
           {
             "name": "code",
@@ -198,7 +198,7 @@
           "Countries"
         ],
         "description": "Provides detailed geographic data like borders, coastline, and elevation.",
-        "operationId": "Countries_Geography_GET",
+        "operationId": "GetCountryGeography",
         "parameters": [
           {
             "name": "code",
@@ -222,7 +222,7 @@
           "Countries"
         ],
         "description": "Gets current information on government type, head of state, etc.",
-        "operationId": "Countries_Government_GET",
+        "operationId": "GetCountryGovernment",
         "parameters": [
           {
             "name": "code",
@@ -246,7 +246,7 @@
           "Countries"
         ],
         "description": "Retrieves cultural information like national symbols and UNESCO sites.",
-        "operationId": "Countries_Culture_GET",
+        "operationId": "GetCountryCulture",
         "parameters": [
           {
             "name": "code",
@@ -270,7 +270,7 @@
           "Currencies"
         ],
         "description": "Returns a list of all world currencies with their details.",
-        "operationId": "Currencies_Currencies_GET",
+        "operationId": "GetCurrencies",
         "responses": {
           "200": {
             "description": "OK",
@@ -310,7 +310,7 @@
           "FxRates"
         ],
         "description": "Gets the latest foreign exchange rates against a base currency.",
-        "operationId": "FxRates_GetLatestFxRates_GET",
+        "operationId": "GetLatestFxRates",
         "parameters": [
           {
             "name": "base",
@@ -360,7 +360,7 @@
           "FxRates"
         ],
         "description": "Performs currency conversions for current or historical dates.",
-        "operationId": "FxRates_ConvertCurrency_GET",
+        "operationId": "ConvertCurrency",
         "parameters": [
           {
             "name": "from",
@@ -408,7 +408,7 @@
           "Stats"
         ],
         "description": "Provides a list of all available statistical indicators (e.g., population).",
-        "operationId": "Stats_GetIndicators_GET",
+        "operationId": "GetIndicators",
         "responses": {
           "200": {
             "description": "OK",
@@ -448,7 +448,7 @@
           "Stats"
         ],
         "description": "Fetches historical time-series data for specified countries and indicators.",
-        "operationId": "Stats_GetIndicatorData_GET",
+        "operationId": "GetIndicatorData",
         "parameters": [
           {
             "name": "category",
@@ -524,7 +524,7 @@
           "Stats"
         ],
         "description": "Returns a side-by-side comparison of specific stats for multiple countries.",
-        "operationId": "Stats_CompareCountries_GET",
+        "operationId": "CompareCountries",
         "parameters": [
           {
             "name": "countries",
@@ -562,7 +562,7 @@
         "tags": [
           "Users"
         ],
-        "operationId": "Users_CurrentUser_GET",
+        "operationId": "GetCurrentUser",
         "responses": {
           "200": {
             "description": "OK"
