@@ -380,8 +380,7 @@
             "in": "query",
             "schema": {
               "type": "number",
-              "format": "double",
-              "default": 1
+              "format": "double"
             }
           },
           {
@@ -389,8 +388,7 @@
             "in": "query",
             "schema": {
               "type": "string",
-              "format": "date",
-              "default": null
+              "format": "date"
             }
           }
         ],
@@ -469,8 +467,7 @@
             "name": "countries",
             "in": "query",
             "schema": {
-              "type": "string",
-              "default": null
+              "type": "string"
             }
           },
           {
@@ -478,8 +475,7 @@
             "in": "query",
             "schema": {
               "type": "integer",
-              "format": "int32",
-              "default": null
+              "format": "int32"
             }
           },
           {
@@ -487,8 +483,7 @@
             "in": "query",
             "schema": {
               "type": "integer",
-              "format": "int32",
-              "default": null
+              "format": "int32"
             }
           },
           {
@@ -544,8 +539,7 @@
             "in": "query",
             "schema": {
               "type": "integer",
-              "format": "int32",
-              "default": null
+              "format": "int32"
             }
           }
         ],
