@@ -1,5 +1,5 @@
 {
-  "openapi": "3.0.1",
+  "openapi": "3.1.1",
   "info": {
     "title": "Atlas Stats API",
     "description": "The Atlas Stats API provides access to a wide range of statistical data, including GDP, population, and other key indicators for countries around the world. This API is designed to be fast, reliable, and easy to use, making it an ideal choice for developers looking to integrate statistical data into their applications.",
@@ -44,7 +44,11 @@
             "name": "page",
             "in": "query",
             "schema": {
-              "type": "integer",
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": [
+                "integer",
+                "string"
+              ],
               "format": "int32",
               "default": 1
             }
@@ -53,7 +57,11 @@
             "name": "pageSize",
             "in": "query",
             "schema": {
-              "type": "integer",
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": [
+                "integer",
+                "string"
+              ],
               "format": "int32",
               "default": 100
             }
@@ -146,19 +154,31 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "type": "integer",
+                  "pattern": "^-?(?:0|[1-9]\\d*)$",
+                  "type": [
+                    "integer",
+                    "string"
+                  ],
                   "format": "int32"
                 }
               },
               "application/json": {
                 "schema": {
-                  "type": "integer",
+                  "pattern": "^-?(?:0|[1-9]\\d*)$",
+                  "type": [
+                    "integer",
+                    "string"
+                  ],
                   "format": "int32"
                 }
               },
               "text/json": {
                 "schema": {
-                  "type": "integer",
+                  "pattern": "^-?(?:0|[1-9]\\d*)$",
+                  "type": [
+                    "integer",
+                    "string"
+                  ],
                   "format": "int32"
                 }
               }
@@ -379,7 +399,11 @@
             "name": "amount",
             "in": "query",
             "schema": {
-              "type": "number",
+              "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+              "type": [
+                "number",
+                "string"
+              ],
               "format": "double"
             }
           },
@@ -474,7 +498,11 @@
             "name": "startYear",
             "in": "query",
             "schema": {
-              "type": "integer",
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": [
+                "integer",
+                "string"
+              ],
               "format": "int32"
             }
           },
@@ -482,7 +510,11 @@
             "name": "endYear",
             "in": "query",
             "schema": {
-              "type": "integer",
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": [
+                "integer",
+                "string"
+              ],
               "format": "int32"
             }
           },
@@ -490,7 +522,11 @@
             "name": "page",
             "in": "query",
             "schema": {
-              "type": "integer",
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": [
+                "integer",
+                "string"
+              ],
               "format": "int32",
               "default": 1
             }
@@ -499,7 +535,11 @@
             "name": "pageSize",
             "in": "query",
             "schema": {
-              "type": "integer",
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": [
+                "integer",
+                "string"
+              ],
               "format": "int32",
               "default": 100
             }
@@ -538,7 +578,11 @@
             "name": "year",
             "in": "query",
             "schema": {
-              "type": "integer",
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": [
+                "integer",
+                "string"
+              ],
               "format": "int32"
             }
           }
@@ -599,12 +643,18 @@
             "type": "string"
           },
           "isoNumericCountryCode": {
-            "type": "integer",
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
             "format": "int32"
           },
           "sovereignty": {
-            "type": "string",
-            "nullable": true
+            "type": [
+              "null",
+              "string"
+            ]
           },
           "dependentTerritories": {
             "type": "array",
@@ -649,7 +699,11 @@
             "type": "boolean"
           },
           "areaKm2": {
-            "type": "integer",
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
             "format": "uint32"
           }
         }
@@ -685,7 +739,11 @@
             "type": "string"
           },
           "rate": {
-            "type": "number",
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": [
+              "number",
+              "string"
+            ],
             "format": "double"
           }
         }
