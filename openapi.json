@@ -617,6 +617,7 @@
           "isoAlpha2CountryCode",
           "isoAlpha3CountryCode",
           "isoNumericCountryCode",
+          "sovereignty",
           "dependentTerritories",
           "flagImageUrl",
           "capitals",
