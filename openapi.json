@@ -55,21 +55,12 @@
         }
       }
     },
-    "/rotate": {
+    "/v1/ApiKeys/rotate": {
       "post": {
         "tags": [
           "ApiKeys"
         ],
         "description": "Rotates an existing API key, returning a new raw key.",
-        "parameters": [
-          {
-            "name": "api-version",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "OK",
