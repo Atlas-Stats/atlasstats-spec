@@ -847,10 +847,24 @@
         "type": "object",
         "properties": {
           "activeApiKey": {
-            "$ref": "#/components/schemas/ApiKeyMetadataDto"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/ApiKeyMetadataDto"
+              }
+            ]
           },
           "expiringApiKey": {
-            "$ref": "#/components/schemas/ApiKeyMetadataDto"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/ApiKeyMetadataDto"
+              }
+            ]
           }
         }
       },
