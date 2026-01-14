@@ -35,17 +35,7 @@
           "200": {
             "description": "OK",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiKeyMetadataPairDto"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiKeyMetadataPairDto"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ApiKeyMetadataPairDto"
                 }
@@ -65,19 +55,19 @@
           "200": {
             "description": "OK",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiKeyDto"
-                }
-              },
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ApiKeyDto"
                 }
-              },
-              "text/json": {
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ApiKeyDto"
+                  "type": "string"
                 }
               }
             }
@@ -111,8 +101,18 @@
           "required": true
         },
         "responses": {
-          "200": {
-            "description": "OK"
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
           }
         }
       }
@@ -146,19 +146,19 @@
           "200": {
             "description": "OK",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/TokenResponseDto"
-                }
-              },
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/TokenResponseDto"
                 }
-              },
-              "text/json": {
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/TokenResponseDto"
+                  "type": "string"
                 }
               }
             }
@@ -195,19 +195,19 @@
           "200": {
             "description": "OK",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/TokenResponseDto"
-                }
-              },
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/TokenResponseDto"
                 }
-              },
-              "text/json": {
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/TokenResponseDto"
+                  "type": "string"
                 }
               }
             }
