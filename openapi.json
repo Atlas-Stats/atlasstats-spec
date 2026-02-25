@@ -220,7 +220,7 @@
         "tags": [
           "Countries"
         ],
-        "description": "Retrieves a filterable list of all countries with basic information.",
+        "description": "Retrieves a filterable list of all countries with basic properties only (ISO codes).",
         "operationId": "GetCountries",
         "parameters": [
           {
@@ -284,12 +284,81 @@
         }
       }
     },
+    "/v1/Countries/facts": {
+      "get": {
+        "tags": [
+          "Countries"
+        ],
+        "description": "Retrieves a filterable list of all countries with comprehensive facts and aggregated data.",
+        "operationId": "GetCountriesFacts",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": [
+                "integer",
+                "string"
+              ],
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": [
+                "integer",
+                "string"
+              ],
+              "format": "int32",
+              "default": 100
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CountryFactsDto"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/Countries/{code}": {
       "get": {
         "tags": [
           "Countries"
         ],
-        "description": "Gets a comprehensive profile for a single country.",
+        "description": "Gets basic properties for a single country.",
         "operationId": "GetCountryByCode",
         "parameters": [
           {
@@ -308,6 +377,57 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/CountryDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/Countries/{code}/facts": {
+      "get": {
+        "tags": [
+          "Countries"
+        ],
+        "description": "Gets a comprehensive profile with all facts for a single country.",
+        "operationId": "GetCountryFactsByCode",
+        "parameters": [
+          {
+            "name": "code",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CountryFactsDto"
                 }
               }
             }
@@ -371,149 +491,45 @@
         }
       }
     },
-    "/v1/Countries/profile/{code}": {
-      "get": {
-        "tags": [
-          "Countries"
-        ],
-        "description": "A convenient summary of a country's key info and latest stats.",
-        "operationId": "GetCountryProfile",
-        "parameters": [
-          {
-            "name": "code",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "500": {
-            "description": "Internal Server Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v1/Countries/{code}/geography": {
-      "get": {
-        "tags": [
-          "Countries"
-        ],
-        "description": "Provides detailed geographic data like borders, coastline, and elevation.",
-        "operationId": "GetCountryGeography",
-        "parameters": [
-          {
-            "name": "code",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "500": {
-            "description": "Internal Server Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v1/Countries/{code}/government": {
-      "get": {
-        "tags": [
-          "Countries"
-        ],
-        "description": "Gets current information on government type, head of state, etc.",
-        "operationId": "GetCountryGovernment",
-        "parameters": [
-          {
-            "name": "code",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "500": {
-            "description": "Internal Server Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v1/Countries/{code}/culture": {
-      "get": {
-        "tags": [
-          "Countries"
-        ],
-        "description": "Retrieves cultural information like national symbols and UNESCO sites.",
-        "operationId": "GetCountryCulture",
-        "parameters": [
-          {
-            "name": "code",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "500": {
-            "description": "Internal Server Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/v1/Currencies": {
       "get": {
         "tags": [
           "Currencies"
         ],
-        "description": "Returns a list of all world currencies with their details.",
+        "description": "Retrieves a list of all currencies with basic properties only (code and full name).",
         "operationId": "GetCurrencies",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": [
+                "integer",
+                "string"
+              ],
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": [
+                "integer",
+                "string"
+              ],
+              "format": "int32",
+              "default": 100
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/CurrencyDto"
-                  }
-                }
-              },
               "application/json": {
                 "schema": {
                   "type": "array",
@@ -521,13 +537,215 @@
                     "$ref": "#/components/schemas/CurrencyDto"
                   }
                 }
-              },
-              "text/json": {
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/Currencies/facts": {
+      "get": {
+        "tags": [
+          "Currencies"
+        ],
+        "description": "Retrieves a list of all currencies with comprehensive facts including countries where used.",
+        "operationId": "GetCurrenciesFacts",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": [
+                "integer",
+                "string"
+              ],
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": [
+                "integer",
+                "string"
+              ],
+              "format": "int32",
+              "default": 100
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/CurrencyDto"
+                    "$ref": "#/components/schemas/CurrencyFactsDto"
                   }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/Currencies/{code}": {
+      "get": {
+        "tags": [
+          "Currencies"
+        ],
+        "description": "Gets basic properties for a single currency.",
+        "operationId": "GetCurrencyByCode",
+        "parameters": [
+          {
+            "name": "code",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CurrencyDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/Currencies/{code}/facts": {
+      "get": {
+        "tags": [
+          "Currencies"
+        ],
+        "description": "Gets a comprehensive profile with all facts for a single currency.",
+        "operationId": "GetCurrencyFactsByCode",
+        "parameters": [
+          {
+            "name": "code",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CurrencyFactsDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/Currencies/count": {
+      "get": {
+        "tags": [
+          "Currencies"
+        ],
+        "description": "Retrieves the total count of currencies in the database.",
+        "operationId": "GetCurrenciesCount",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "pattern": "^-?(?:0|[1-9]\\d*)$",
+                  "type": [
+                    "integer",
+                    "string"
+                  ],
+                  "format": "int32"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
                 }
               }
             }
@@ -631,6 +849,268 @@
         "responses": {
           "200": {
             "description": "OK"
+          }
+        }
+      }
+    },
+    "/v1/Languages": {
+      "get": {
+        "tags": [
+          "Languages"
+        ],
+        "description": "Retrieves a list of all languages with basic properties only (ISO codes and name).",
+        "operationId": "GetLanguages",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": [
+                "integer",
+                "string"
+              ],
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": [
+                "integer",
+                "string"
+              ],
+              "format": "int32",
+              "default": 100
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/LanguageDto"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/Languages/facts": {
+      "get": {
+        "tags": [
+          "Languages"
+        ],
+        "description": "Retrieves a list of all languages with comprehensive facts including countries where spoken.",
+        "operationId": "GetLanguagesFacts",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": [
+                "integer",
+                "string"
+              ],
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": [
+                "integer",
+                "string"
+              ],
+              "format": "int32",
+              "default": 100
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/LanguageFactsDto"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/Languages/{codeOrName}": {
+      "get": {
+        "tags": [
+          "Languages"
+        ],
+        "description": "Gets basic properties for a single language.",
+        "operationId": "GetLanguageByCodeOrName",
+        "parameters": [
+          {
+            "name": "codeOrName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LanguageDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/Languages/{codeOrName}/facts": {
+      "get": {
+        "tags": [
+          "Languages"
+        ],
+        "description": "Gets a comprehensive profile with all facts for a single language.",
+        "operationId": "GetLanguageFactsByCodeOrName",
+        "parameters": [
+          {
+            "name": "codeOrName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LanguageFactsDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/Languages/count": {
+      "get": {
+        "tags": [
+          "Languages"
+        ],
+        "description": "Retrieves the total count of languages in the database.",
+        "operationId": "GetLanguagesCount",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "pattern": "^-?(?:0|[1-9]\\d*)$",
+                  "type": [
+                    "integer",
+                    "string"
+                  ],
+                  "format": "int32"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
           }
         }
       }
@@ -892,6 +1372,31 @@
       },
       "CountryDto": {
         "required": [
+          "isoAlpha2",
+          "isoAlpha3",
+          "isoNumeric"
+        ],
+        "type": "object",
+        "properties": {
+          "isoAlpha2": {
+            "type": "string"
+          },
+          "isoAlpha3": {
+            "type": "string"
+          },
+          "isoNumeric": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "null",
+              "integer",
+              "string"
+            ],
+            "format": "int32"
+          }
+        }
+      },
+      "CountryFactsDto": {
+        "required": [
           "commonName",
           "officialName",
           "isoAlpha2CountryCode",
@@ -899,7 +1404,7 @@
           "isoNumericCountryCode",
           "sovereignty",
           "dependentTerritories",
-          "flagImageUrl",
+          "flagImageUrls",
           "capitals",
           "languages",
           "currencies",
@@ -943,8 +1448,8 @@
               "type": "string"
             }
           },
-          "flagImageUrl": {
-            "type": "string"
+          "flagImageUrls": {
+            "$ref": "#/components/schemas/FlagImageUrls"
           },
           "capitals": {
             "type": "array",
@@ -992,14 +1497,59 @@
       "CurrencyDto": {
         "required": [
           "code",
-          "name"
+          "fullName"
         ],
         "type": "object",
         "properties": {
           "code": {
             "type": "string"
           },
-          "name": {
+          "fullName": {
+            "type": "string"
+          }
+        }
+      },
+      "CurrencyFactsDto": {
+        "required": [
+          "code",
+          "fullName",
+          "countriesWhereUsed"
+        ],
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "fullName": {
+            "type": "string"
+          },
+          "countriesWhereUsed": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CountryDto"
+            }
+          }
+        }
+      },
+      "FlagImageUrls": {
+        "required": [
+          "highRes",
+          "mediumRes",
+          "lowRes",
+          "svg"
+        ],
+        "type": "object",
+        "properties": {
+          "highRes": {
+            "type": "string"
+          },
+          "mediumRes": {
+            "type": "string"
+          },
+          "lowRes": {
+            "type": "string"
+          },
+          "svg": {
             "type": "string"
           }
         }
@@ -1031,16 +1581,46 @@
       },
       "LanguageDto": {
         "required": [
-          "code",
+          "isoAlpha1",
+          "isoAlpha3",
           "name"
         ],
         "type": "object",
         "properties": {
-          "code": {
+          "isoAlpha1": {
+            "type": "string"
+          },
+          "isoAlpha3": {
             "type": "string"
           },
           "name": {
             "type": "string"
+          }
+        }
+      },
+      "LanguageFactsDto": {
+        "required": [
+          "isoAlpha1",
+          "isoAlpha3",
+          "name",
+          "countriesWhereSpoken"
+        ],
+        "type": "object",
+        "properties": {
+          "isoAlpha1": {
+            "type": "string"
+          },
+          "isoAlpha3": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "countriesWhereSpoken": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CountryDto"
+            }
           }
         }
       },
@@ -1125,6 +1705,9 @@
     },
     {
       "name": "FxRates"
+    },
+    {
+      "name": "Languages"
     },
     {
       "name": "Stats"
