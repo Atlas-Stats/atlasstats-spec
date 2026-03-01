@@ -289,8 +289,320 @@
         "tags": [
           "Countries"
         ],
-        "description": "Retrieves a filterable list of all countries with comprehensive facts and aggregated data.",
+        "description": "Retrieves a filterable list of country facts, with latest snapshot or time-series based on from/to.",
         "operationId": "GetCountriesFacts",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": [
+                "integer",
+                "string"
+              ],
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": [
+                "integer",
+                "string"
+              ],
+              "format": "int32",
+              "default": 100
+            }
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CountryFactsCollectionItemDto"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CountryFactsCollectionItemDto"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CountryFactsCollectionItemDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/Countries/facts/{factCode}": {
+      "get": {
+        "tags": [
+          "Countries"
+        ],
+        "description": "Retrieves a single fact series for countries, with latest snapshot or time-series based on from/to.",
+        "operationId": "GetCountriesFactByCode",
+        "parameters": [
+          {
+            "name": "factCode",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": [
+                "integer",
+                "string"
+              ],
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": [
+                "integer",
+                "string"
+              ],
+              "format": "int32",
+              "default": 100
+            }
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CountryFactsCollectionItemDto"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CountryFactsCollectionItemDto"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CountryFactsCollectionItemDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/Countries/{code}/facts": {
+      "get": {
+        "tags": [
+          "Countries"
+        ],
+        "description": "Gets all facts for a single country, with latest snapshot or time-series based on from/to.",
+        "operationId": "GetCountryFactsByCode",
+        "parameters": [
+          {
+            "name": "code",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/EntityFactsResponseDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EntityFactsResponseDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EntityFactsResponseDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/Countries/{code}/facts/{factCode}": {
+      "get": {
+        "tags": [
+          "Countries"
+        ],
+        "description": "Gets a single fact series for a single country, with latest snapshot or time-series based on from/to.",
+        "operationId": "GetCountryFactByCode",
+        "parameters": [
+          {
+            "name": "code",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "factCode",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/EntityFactsResponseDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EntityFactsResponseDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EntityFactsResponseDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/Countries/facts/catalog": {
+      "get": {
+        "tags": [
+          "Countries"
+        ],
+        "description": "Gets supported country fact codes and available ranges for the current result scope.",
+        "operationId": "GetCountriesFactsCatalog",
         "parameters": [
           {
             "name": "q",
@@ -330,22 +642,78 @@
           "200": {
             "description": "OK",
             "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FactCatalogItemDto"
+                  }
+                }
+              },
               "application/json": {
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/CountryFactsDto"
+                    "$ref": "#/components/schemas/FactCatalogItemDto"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FactCatalogItemDto"
                   }
                 }
               }
             }
-          },
-          "500": {
-            "description": "Internal Server Error",
+          }
+        }
+      }
+    },
+    "/v1/Countries/{code}/facts/catalog": {
+      "get": {
+        "tags": [
+          "Countries"
+        ],
+        "description": "Gets supported country fact codes and available ranges for a single country.",
+        "operationId": "GetCountryFactsCatalogByCode",
+        "parameters": [
+          {
+            "name": "code",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
             "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FactCatalogItemDto"
+                  }
+                }
+              },
               "application/json": {
                 "schema": {
-                  "type": "string"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FactCatalogItemDto"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FactCatalogItemDto"
+                  }
                 }
               }
             }
@@ -377,57 +745,6 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/CountryDto"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v1/Countries/{code}/facts": {
-      "get": {
-        "tags": [
-          "Countries"
-        ],
-        "description": "Gets a comprehensive profile with all facts for a single country.",
-        "operationId": "GetCountryFactsByCode",
-        "parameters": [
-          {
-            "name": "code",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CountryFactsDto"
                 }
               }
             }
@@ -558,7 +875,7 @@
         "tags": [
           "Currencies"
         ],
-        "description": "Retrieves a list of all currencies with comprehensive facts including countries where used.",
+        "description": "Retrieves a list of currency facts, with latest snapshot or time-series based on from/to.",
         "operationId": "GetCurrenciesFacts",
         "parameters": [
           {
@@ -586,28 +903,142 @@
               "format": "int32",
               "default": 100
             }
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK",
             "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CurrencyFactsCollectionItemDto"
+                  }
+                }
+              },
               "application/json": {
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/CurrencyFactsDto"
+                    "$ref": "#/components/schemas/CurrencyFactsCollectionItemDto"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CurrencyFactsCollectionItemDto"
                   }
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "/v1/Currencies/facts/{factCode}": {
+      "get": {
+        "tags": [
+          "Currencies"
+        ],
+        "description": "Retrieves a single fact series for currencies, with latest snapshot or time-series based on from/to.",
+        "operationId": "GetCurrenciesFactByCode",
+        "parameters": [
+          {
+            "name": "factCode",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
           },
-          "500": {
-            "description": "Internal Server Error",
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": [
+                "integer",
+                "string"
+              ],
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": [
+                "integer",
+                "string"
+              ],
+              "format": "int32",
+              "default": 100
+            }
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
             "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CurrencyFactsCollectionItemDto"
+                  }
+                }
+              },
               "application/json": {
                 "schema": {
-                  "type": "string"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CurrencyFactsCollectionItemDto"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CurrencyFactsCollectionItemDto"
+                  }
                 }
               }
             }
@@ -671,8 +1102,198 @@
         "tags": [
           "Currencies"
         ],
-        "description": "Gets a comprehensive profile with all facts for a single currency.",
+        "description": "Gets all facts for a single currency, with latest snapshot or time-series based on from/to.",
         "operationId": "GetCurrencyFactsByCode",
+        "parameters": [
+          {
+            "name": "code",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/EntityFactsResponseDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EntityFactsResponseDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EntityFactsResponseDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/Currencies/{code}/facts/{factCode}": {
+      "get": {
+        "tags": [
+          "Currencies"
+        ],
+        "description": "Gets a single fact series for a single currency, with latest snapshot or time-series based on from/to.",
+        "operationId": "GetCurrencyFactByCode",
+        "parameters": [
+          {
+            "name": "code",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "factCode",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/EntityFactsResponseDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EntityFactsResponseDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EntityFactsResponseDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/Currencies/facts/catalog": {
+      "get": {
+        "tags": [
+          "Currencies"
+        ],
+        "description": "Gets supported currency fact codes and available ranges for the current result scope.",
+        "operationId": "GetCurrenciesFactsCatalog",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": [
+                "integer",
+                "string"
+              ],
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": [
+                "integer",
+                "string"
+              ],
+              "format": "int32",
+              "default": 100
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FactCatalogItemDto"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FactCatalogItemDto"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FactCatalogItemDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/Currencies/{code}/facts/catalog": {
+      "get": {
+        "tags": [
+          "Currencies"
+        ],
+        "description": "Gets supported currency fact codes and available ranges for a single currency.",
+        "operationId": "GetCurrencyFactsCatalogByCode",
         "parameters": [
           {
             "name": "code",
@@ -687,29 +1308,28 @@
           "200": {
             "description": "OK",
             "content": {
-              "application/json": {
+              "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/CurrencyFactsDto"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FactCatalogItemDto"
+                  }
                 }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
+              },
               "application/json": {
                 "schema": {
-                  "type": "string"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FactCatalogItemDto"
+                  }
                 }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
+              },
+              "text/json": {
                 "schema": {
-                  "type": "string"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FactCatalogItemDto"
+                  }
                 }
               }
             }
@@ -749,106 +1369,6 @@
                 }
               }
             }
-          }
-        }
-      }
-    },
-    "/v1/FxRates/latest": {
-      "get": {
-        "tags": [
-          "FxRates"
-        ],
-        "description": "Gets the latest foreign exchange rates against a base currency.",
-        "operationId": "GetLatestFxRates",
-        "parameters": [
-          {
-            "name": "base",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "default": "EUR"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/FxRateDto"
-                  }
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/FxRateDto"
-                  }
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/FxRateDto"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v1/FxRates/convert": {
-      "get": {
-        "tags": [
-          "FxRates"
-        ],
-        "description": "Performs currency conversions for current or historical dates.",
-        "operationId": "ConvertCurrency",
-        "parameters": [
-          {
-            "name": "from",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "to",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "amount",
-            "in": "query",
-            "schema": {
-              "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
-              "type": [
-                "number",
-                "string"
-              ],
-              "format": "double"
-            }
-          },
-          {
-            "name": "date",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "format": "date"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
           }
         }
       }
@@ -920,7 +1440,7 @@
         "tags": [
           "Languages"
         ],
-        "description": "Retrieves a list of all languages with comprehensive facts including countries where spoken.",
+        "description": "Retrieves a list of language facts, with latest snapshot or time-series based on from/to.",
         "operationId": "GetLanguagesFacts",
         "parameters": [
           {
@@ -948,28 +1468,142 @@
               "format": "int32",
               "default": 100
             }
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK",
             "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/LanguageFactsCollectionItemDto"
+                  }
+                }
+              },
               "application/json": {
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/LanguageFactsDto"
+                    "$ref": "#/components/schemas/LanguageFactsCollectionItemDto"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/LanguageFactsCollectionItemDto"
                   }
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "/v1/Languages/facts/{factCode}": {
+      "get": {
+        "tags": [
+          "Languages"
+        ],
+        "description": "Retrieves a single fact series for languages, with latest snapshot or time-series based on from/to.",
+        "operationId": "GetLanguagesFactByCode",
+        "parameters": [
+          {
+            "name": "factCode",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
           },
-          "500": {
-            "description": "Internal Server Error",
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": [
+                "integer",
+                "string"
+              ],
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": [
+                "integer",
+                "string"
+              ],
+              "format": "int32",
+              "default": 100
+            }
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
             "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/LanguageFactsCollectionItemDto"
+                  }
+                }
+              },
               "application/json": {
                 "schema": {
-                  "type": "string"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/LanguageFactsCollectionItemDto"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/LanguageFactsCollectionItemDto"
+                  }
                 }
               }
             }
@@ -1033,8 +1667,198 @@
         "tags": [
           "Languages"
         ],
-        "description": "Gets a comprehensive profile with all facts for a single language.",
+        "description": "Gets all facts for a single language, with latest snapshot or time-series based on from/to.",
         "operationId": "GetLanguageFactsByCodeOrName",
+        "parameters": [
+          {
+            "name": "codeOrName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/EntityFactsResponseDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EntityFactsResponseDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EntityFactsResponseDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/Languages/{codeOrName}/facts/{factCode}": {
+      "get": {
+        "tags": [
+          "Languages"
+        ],
+        "description": "Gets a single fact series for a single language, with latest snapshot or time-series based on from/to.",
+        "operationId": "GetLanguageFactByCodeOrName",
+        "parameters": [
+          {
+            "name": "codeOrName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "factCode",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/EntityFactsResponseDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EntityFactsResponseDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EntityFactsResponseDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/Languages/facts/catalog": {
+      "get": {
+        "tags": [
+          "Languages"
+        ],
+        "description": "Gets supported language fact codes and available ranges for the current result scope.",
+        "operationId": "GetLanguagesFactsCatalog",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": [
+                "integer",
+                "string"
+              ],
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": [
+                "integer",
+                "string"
+              ],
+              "format": "int32",
+              "default": 100
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FactCatalogItemDto"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FactCatalogItemDto"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FactCatalogItemDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/Languages/{codeOrName}/facts/catalog": {
+      "get": {
+        "tags": [
+          "Languages"
+        ],
+        "description": "Gets supported language fact codes and available ranges for a single language.",
+        "operationId": "GetLanguageFactsCatalogByCodeOrName",
         "parameters": [
           {
             "name": "codeOrName",
@@ -1049,29 +1873,28 @@
           "200": {
             "description": "OK",
             "content": {
-              "application/json": {
+              "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/LanguageFactsDto"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FactCatalogItemDto"
+                  }
                 }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
+              },
               "application/json": {
                 "schema": {
-                  "type": "string"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FactCatalogItemDto"
+                  }
                 }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
+              },
+              "text/json": {
                 "schema": {
-                  "type": "string"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FactCatalogItemDto"
+                  }
                 }
               }
             }
@@ -1111,177 +1934,6 @@
                 }
               }
             }
-          }
-        }
-      }
-    },
-    "/v1/Stats/indicators": {
-      "get": {
-        "tags": [
-          "Stats"
-        ],
-        "description": "Provides a list of all available statistical indicators (e.g., population).",
-        "operationId": "GetIndicators",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v1/Stats/{category}/{metric}": {
-      "get": {
-        "tags": [
-          "Stats"
-        ],
-        "description": "Fetches historical time-series data for specified countries and indicators.",
-        "operationId": "GetIndicatorData",
-        "parameters": [
-          {
-            "name": "category",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "metric",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "countries",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "startYear",
-            "in": "query",
-            "schema": {
-              "pattern": "^-?(?:0|[1-9]\\d*)$",
-              "type": [
-                "integer",
-                "string"
-              ],
-              "format": "int32"
-            }
-          },
-          {
-            "name": "endYear",
-            "in": "query",
-            "schema": {
-              "pattern": "^-?(?:0|[1-9]\\d*)$",
-              "type": [
-                "integer",
-                "string"
-              ],
-              "format": "int32"
-            }
-          },
-          {
-            "name": "page",
-            "in": "query",
-            "schema": {
-              "pattern": "^-?(?:0|[1-9]\\d*)$",
-              "type": [
-                "integer",
-                "string"
-              ],
-              "format": "int32",
-              "default": 1
-            }
-          },
-          {
-            "name": "pageSize",
-            "in": "query",
-            "schema": {
-              "pattern": "^-?(?:0|[1-9]\\d*)$",
-              "type": [
-                "integer",
-                "string"
-              ],
-              "format": "int32",
-              "default": 100
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/v1/Stats/compare": {
-      "get": {
-        "tags": [
-          "Stats"
-        ],
-        "description": "Returns a side-by-side comparison of specific stats for multiple countries.",
-        "operationId": "CompareCountries",
-        "parameters": [
-          {
-            "name": "countries",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "indicators",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "year",
-            "in": "query",
-            "schema": {
-              "pattern": "^-?(?:0|[1-9]\\d*)$",
-              "type": [
-                "integer",
-                "string"
-              ],
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
           }
         }
       }
@@ -1395,102 +2047,46 @@
           }
         }
       },
-      "CountryFactsDto": {
+      "CountryEntityRefDto": {
         "required": [
-          "commonName",
-          "officialName",
-          "isoAlpha2CountryCode",
-          "isoAlpha3CountryCode",
-          "isoNumericCountryCode",
-          "sovereignty",
-          "dependentTerritories",
-          "flagImageUrls",
-          "capitals",
-          "languages",
-          "currencies",
-          "borderingCountries",
-          "demonymn",
-          "isUnMember",
-          "isLandlocked",
-          "areaKm2"
+          "isoAlpha2",
+          "isoAlpha3",
+          "isoNumeric"
         ],
         "type": "object",
         "properties": {
-          "commonName": {
+          "isoAlpha2": {
             "type": "string"
           },
-          "officialName": {
+          "isoAlpha3": {
             "type": "string"
           },
-          "isoAlpha2CountryCode": {
-            "type": "string"
-          },
-          "isoAlpha3CountryCode": {
-            "type": "string"
-          },
-          "isoNumericCountryCode": {
+          "isoNumeric": {
             "pattern": "^-?(?:0|[1-9]\\d*)$",
             "type": [
+              "null",
               "integer",
               "string"
             ],
             "format": "int32"
+          }
+        }
+      },
+      "CountryFactsCollectionItemDto": {
+        "required": [
+          "entity",
+          "facts"
+        ],
+        "type": "object",
+        "properties": {
+          "entity": {
+            "$ref": "#/components/schemas/CountryEntityRefDto"
           },
-          "sovereignty": {
-            "type": [
-              "null",
-              "string"
-            ]
-          },
-          "dependentTerritories": {
+          "facts": {
             "type": "array",
             "items": {
-              "type": "string"
+              "$ref": "#/components/schemas/FactSeriesDto"
             }
-          },
-          "flagImageUrls": {
-            "$ref": "#/components/schemas/FlagImageUrls"
-          },
-          "capitals": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "languages": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/LanguageDto"
-            }
-          },
-          "currencies": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/CurrencyDto"
-            }
-          },
-          "borderingCountries": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "demonymn": {
-            "type": "string"
-          },
-          "isUnMember": {
-            "type": "boolean"
-          },
-          "isLandlocked": {
-            "type": "boolean"
-          },
-          "areaKm2": {
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
-            "type": [
-              "integer",
-              "string"
-            ],
-            "format": "uint32"
           }
         }
       },
@@ -1509,67 +2105,194 @@
           }
         }
       },
-      "CurrencyFactsDto": {
+      "CurrencyEntityRefDto": {
         "required": [
-          "code",
-          "fullName",
-          "countriesWhereUsed"
+          "code"
         ],
         "type": "object",
         "properties": {
           "code": {
             "type": "string"
+          }
+        }
+      },
+      "CurrencyFactsCollectionItemDto": {
+        "required": [
+          "entity",
+          "facts"
+        ],
+        "type": "object",
+        "properties": {
+          "entity": {
+            "$ref": "#/components/schemas/CurrencyEntityRefDto"
           },
-          "fullName": {
-            "type": "string"
-          },
-          "countriesWhereUsed": {
+          "facts": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/CountryDto"
+              "$ref": "#/components/schemas/FactSeriesDto"
             }
           }
         }
       },
-      "FlagImageUrls": {
+      "EntityFactsResponseDto": {
         "required": [
-          "highRes",
-          "mediumRes",
-          "lowRes",
-          "svg"
+          "facts"
         ],
         "type": "object",
         "properties": {
-          "highRes": {
-            "type": "string"
-          },
-          "mediumRes": {
-            "type": "string"
-          },
-          "lowRes": {
-            "type": "string"
-          },
-          "svg": {
-            "type": "string"
+          "facts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FactSeriesDto"
+            }
           }
         }
       },
-      "FxRateDto": {
+      "FactCatalogItemDto": {
         "required": [
-          "date",
-          "currencyCode",
-          "rate"
+          "factCode",
+          "supportsRange",
+          "availableFrom",
+          "availableTo"
         ],
         "type": "object",
         "properties": {
-          "date": {
-            "type": "string",
-            "format": "date"
-          },
-          "currencyCode": {
+          "factCode": {
             "type": "string"
           },
-          "rate": {
+          "supportsRange": {
+            "type": "boolean"
+          },
+          "availableFrom": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "format": "date-time"
+          },
+          "availableTo": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "format": "date-time"
+          }
+        }
+      },
+      "FactPointDto": {
+        "required": [
+          "validFrom",
+          "validTo",
+          "value",
+          "related"
+        ],
+        "type": "object",
+        "properties": {
+          "validFrom": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "validTo": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "format": "date-time"
+          },
+          "value": {
+            "$ref": "#/components/schemas/FactValueDto"
+          },
+          "related": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/RelatedEntityRefDto"
+              }
+            ]
+          }
+        }
+      },
+      "FactSeriesDto": {
+        "required": [
+          "factCode",
+          "points"
+        ],
+        "type": "object",
+        "properties": {
+          "factCode": {
+            "type": "string"
+          },
+          "points": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FactPointDto"
+            }
+          }
+        }
+      },
+      "FactValueDto": {
+        "required": [
+          "kind"
+        ],
+        "type": "object",
+        "anyOf": [
+          {
+            "$ref": "#/components/schemas/FactValueDtoBooleanFactValueDto"
+          },
+          {
+            "$ref": "#/components/schemas/FactValueDtoNumberFactValueDto"
+          },
+          {
+            "$ref": "#/components/schemas/FactValueDtoStringFactValueDto"
+          },
+          {
+            "$ref": "#/components/schemas/FactValueDtoStringListFactValueDto"
+          },
+          {
+            "$ref": "#/components/schemas/FactValueDtoObjectFactValueDto"
+          }
+        ],
+        "discriminator": {
+          "propertyName": "kind",
+          "mapping": {
+            "boolean": "#/components/schemas/FactValueDtoBooleanFactValueDto",
+            "number": "#/components/schemas/FactValueDtoNumberFactValueDto",
+            "string": "#/components/schemas/FactValueDtoStringFactValueDto",
+            "string-list": "#/components/schemas/FactValueDtoStringListFactValueDto",
+            "object": "#/components/schemas/FactValueDtoObjectFactValueDto"
+          }
+        }
+      },
+      "FactValueDtoBooleanFactValueDto": {
+        "required": [
+          "value"
+        ],
+        "properties": {
+          "kind": {
+            "enum": [
+              "boolean"
+            ],
+            "type": "string"
+          },
+          "value": {
+            "type": "boolean"
+          }
+        }
+      },
+      "FactValueDtoNumberFactValueDto": {
+        "required": [
+          "value"
+        ],
+        "properties": {
+          "kind": {
+            "enum": [
+              "number"
+            ],
+            "type": "string"
+          },
+          "value": {
             "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
             "type": [
               "number",
@@ -1579,6 +2302,58 @@
           }
         }
       },
+      "FactValueDtoObjectFactValueDto": {
+        "required": [
+          "value"
+        ],
+        "properties": {
+          "kind": {
+            "enum": [
+              "object"
+            ],
+            "type": "string"
+          },
+          "value": {
+            "$ref": "#/components/schemas/JsonElement"
+          }
+        }
+      },
+      "FactValueDtoStringFactValueDto": {
+        "required": [
+          "value"
+        ],
+        "properties": {
+          "kind": {
+            "enum": [
+              "string"
+            ],
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        }
+      },
+      "FactValueDtoStringListFactValueDto": {
+        "required": [
+          "value"
+        ],
+        "properties": {
+          "kind": {
+            "enum": [
+              "string-list"
+            ],
+            "type": "string"
+          },
+          "value": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "JsonElement": { },
       "LanguageDto": {
         "required": [
           "isoAlpha1",
@@ -1598,12 +2373,10 @@
           }
         }
       },
-      "LanguageFactsDto": {
+      "LanguageEntityRefDto": {
         "required": [
           "isoAlpha1",
-          "isoAlpha3",
-          "name",
-          "countriesWhereSpoken"
+          "isoAlpha3"
         ],
         "type": "object",
         "properties": {
@@ -1612,14 +2385,23 @@
           },
           "isoAlpha3": {
             "type": "string"
+          }
+        }
+      },
+      "LanguageFactsCollectionItemDto": {
+        "required": [
+          "entity",
+          "facts"
+        ],
+        "type": "object",
+        "properties": {
+          "entity": {
+            "$ref": "#/components/schemas/LanguageEntityRefDto"
           },
-          "name": {
-            "type": "string"
-          },
-          "countriesWhereSpoken": {
+          "facts": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/CountryDto"
+              "$ref": "#/components/schemas/FactSeriesDto"
             }
           }
         }
@@ -1673,6 +2455,34 @@
           }
         }
       },
+      "RelatedEntityRefDto": {
+        "required": [
+          "countryIsoAlpha3",
+          "currencyCode",
+          "languageIsoAlpha3"
+        ],
+        "type": "object",
+        "properties": {
+          "countryIsoAlpha3": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "currencyCode": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "languageIsoAlpha3": {
+            "type": [
+              "null",
+              "string"
+            ]
+          }
+        }
+      },
       "TokenResponseDto": {
         "required": [
           "accessToken",
@@ -1704,13 +2514,7 @@
       "name": "Currencies"
     },
     {
-      "name": "FxRates"
-    },
-    {
       "name": "Languages"
-    },
-    {
-      "name": "Stats"
     },
     {
       "name": "Users"
